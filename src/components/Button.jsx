@@ -1,26 +1,16 @@
-import React from "react";
 
-const variantClasses = {
-  primary: "bg-primaryColor-800 text-white hover:bg-primaryColor-700",
-  danger: "bg-red-600 text-white hover:bg-red-700",
-};
 
-export const Button = ({
-  label,
-  type = "button",
-  className = "",
-  onClick,
-  disabled = false,
-  variant = "primary",
-}) => {
+const Button = ({ children, className = "", onClick, type = "button", ...props }) => {
   return (
     <button
       type={type}
       onClick={onClick}
-      disabled={disabled}
-      className={`px-4 py-2 rounded-md font-semibold disabled:opacity-50 ${variantClasses[variant]} ${className}`}
+      className={`inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 ${className}`}
+      {...props}
     >
-      {label}
+      {children}
     </button>
-  );
-};
+  )
+}
+
+export default Button

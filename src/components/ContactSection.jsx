@@ -2,13 +2,13 @@
 import { MapPin, Mail, Phone, AlertCircle, CheckCircle } from "lucide-react"
 import { useState } from "react"
 
-// Fixed Input component
-const Input = ({ type = "text", placeholder, error, value, onChange, name, required = false, label, className = "", ...props }) => {
+
+const Input = ({ type = "text", placeholder, error, value, onChange, name, label, className = "", ...props }) => {
   return (
     <div className="space-y-1">
       {label && (
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          {label} {required && <span className="text-red-500">*</span>}
+          {label} <span className="text-red-500">*</span>
         </label>
       )}
       <input
@@ -17,7 +17,6 @@ const Input = ({ type = "text", placeholder, error, value, onChange, name, requi
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        required={required}
         className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-colors bg-white ${
           error ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300'
         } ${className}`}
@@ -33,13 +32,13 @@ const Input = ({ type = "text", placeholder, error, value, onChange, name, requi
   )
 }
 
-// Textarea component
-const Textarea = ({ placeholder, error, value, onChange, name, required = false, label, rows = 6, className = "", ...props }) => {
+// Clean Textarea component
+const Textarea = ({ placeholder, error, value, onChange, name, label, rows = 6, className = "", ...props }) => {
   return (
     <div className="space-y-1">
       {label && (
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          {label} {required && <span className="text-red-500">*</span>}
+          {label} <span className="text-red-500">*</span>
         </label>
       )}
       <textarea
@@ -48,7 +47,6 @@ const Textarea = ({ placeholder, error, value, onChange, name, required = false,
         value={value}
         onChange={onChange}
         rows={rows}
-        required={required}
         className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-colors resize-none bg-white ${
           error ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300'
         } ${className}`}
@@ -74,129 +72,92 @@ const ContactSection = () => {
 
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState(null) // 'success' or 'error'
+  const [submitStatus, setSubmitStatus] = useState(null)
 
-  // Validation functions
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return emailRegex.test(email)
-  }
-
-  const validateName = (name) => {
-    return name.trim().length >= 2 && /^[a-zA-Z\s]+$/.test(name.trim())
-  }
-
-  const validateSubject = (subject) => {
-    return subject.trim().length >= 3
-  }
-
-  const validateMessage = (message) => {
-    return message.trim().length >= 10
-  }
-
-  // Real-time validation
-  const validateField = (name, value) => {
-    let error = ""
-
-    switch (name) {
-      case "name":
-        if (!value.trim()) {
-          error = "Name is required"
-        } else if (!validateName(value)) {
-          error = "Name must be at least 2 characters and contain only letters"
-        }
-        break
-      case "email":
-        if (!value.trim()) {
-          error = "Email is required"
-        } else if (!validateEmail(value)) {
-          error = "Please enter a valid email address"
-        }
-        break
-      case "subject":
-        if (!value.trim()) {
-          error = "Subject is required"
-        } else if (!validateSubject(value)) {
-          error = "Subject must be at least 3 characters long"
-        }
-        break
-      case "message":
-        if (!value.trim()) {
-          error = "Message is required"
-        } else if (!validateMessage(value)) {
-          error = "Message must be at least 10 characters long"
-        }
-        break
-      default:
-        break
+ 
+  const validateForm = () => {
+    const newErrors = {}
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required"
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = "Name must be at least 2 characters"
     }
 
-    return error
+      
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required"
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email"
+    }
+
+      
+    if (!formData.subject.trim()) {
+      newErrors.subject = "Subject is required"
+    } else if (formData.subject.trim().length < 3) {
+      newErrors.subject = "Subject must be at least 3 characters"
+    }
+
+      
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required"
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = "Message must be at least 10 characters"
+    }
+
+    return newErrors
   }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
     
-    setFormData({
-      ...formData,
+    setFormData(prev => ({
+      ...prev,
       [name]: value,
-    })
+    }))
 
-    // Clear submit status when user starts typing again
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ""
+      }))
+    }
+
     if (submitStatus) {
       setSubmitStatus(null)
     }
-
-    // Real-time validation
-    const error = validateField(name, value)
-    setErrors(prev => ({
-      ...prev,
-      [name]: error
-    }))
-  }
-
-  const validateForm = () => {
-    const newErrors = {}
-    
-    Object.keys(formData).forEach(key => {
-      const error = validateField(key, formData[key])
-      if (error) {
-        newErrors[key] = error
-      }
-    })
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     
-    if (!validateForm()) {
+      
+    const validationErrors = validateForm()
+    
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors)
       setSubmitStatus('error')
       return
     }
 
     setIsSubmitting(true)
     setSubmitStatus(null)
+    setErrors({})
 
     try {
-      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000))
       
       console.log("Form submitted:", formData)
       
-      // Reset form on success
+        
       setFormData({
         name: "",
         email: "",
         subject: "",
         message: "",
       })
-      setErrors({})
       setSubmitStatus('success')
       
-      // Clear success message after 5 seconds
+        
       setTimeout(() => setSubmitStatus(null), 5000)
       
     } catch (error) {
@@ -225,9 +186,6 @@ const ContactSection = () => {
     },
   ]
 
-  const isFormValid = Object.keys(errors).every(key => !errors[key]) && 
-                     Object.values(formData).every(value => value.trim() !== "")
-
   return (
     <section id="contact" className="py-20 bg-gray-50 relative overflow-hidden">
       <div className="absolute inset-0 opacity-10">
@@ -248,15 +206,22 @@ const ContactSection = () => {
               {contactInfo.map((info, index) => {
                 const IconComponent = info.icon
                 return (
-                  <div key={index} className="flex items-start space-x-4">
-                    <div className="bg-teal-600 w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0">
-                      <IconComponent className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-bold text-gray-900 mb-1">{info.title}</h4>
-                      <p className="text-gray-600">{info.content}</p>
-                    </div>
-                  </div>
+              <div key={index} className="flex items-start space-x-4">
+  {/* Dashed circular border wrapper */}
+  <div className="w-16 h-16 rounded-full border-2 border-dashed border-teal-600 flex items-center justify-center flex-shrink-0">
+    {/* Solid teal inner circle with icon */}
+    <div className="bg-teal-600 w-12 h-12 rounded-full flex items-center justify-center">
+      <IconComponent className="w-6 h-6 text-white" />
+    </div>
+  </div>
+
+  {/* Title and content */}
+  <div>
+    <h4 className="text-xl font-bold text-gray-900 mb-1">{info.title}</h4>
+    <p className="text-gray-600">{info.content}</p>
+  </div>
+</div>
+
                 )
               })}
             </div>
@@ -268,7 +233,7 @@ const ContactSection = () => {
               <h2 className="text-4xl lg:text-5xl font-bold text-gray-900">Send a Message</h2>
             </div>
 
-            {/* Status Messages */}
+
             {submitStatus === 'success' && (
               <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center space-x-2">
                 <CheckCircle className="w-5 h-5 text-green-600" />
@@ -279,11 +244,11 @@ const ContactSection = () => {
             {submitStatus === 'error' && (
               <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-center space-x-2">
                 <AlertCircle className="w-5 h-5 text-red-600" />
-                <p className="text-red-800">Please fix the errors below and try again.</p>
+                <p className="text-red-800">Please fix the errors and try again.</p>
               </div>
             )}
 
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <div className="space-y-6">
               <Input
                 type="text"
                 name="name"
@@ -292,7 +257,6 @@ const ContactSection = () => {
                 value={formData.name}
                 onChange={handleInputChange}
                 error={errors.name}
-                required
               />
 
               <Input
@@ -303,7 +267,6 @@ const ContactSection = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 error={errors.email}
-                required
               />
 
               <Input
@@ -314,7 +277,6 @@ const ContactSection = () => {
                 value={formData.subject}
                 onChange={handleInputChange}
                 error={errors.subject}
-                required
               />
 
               <Textarea
@@ -325,16 +287,16 @@ const ContactSection = () => {
                 onChange={handleInputChange}
                 error={errors.message}
                 rows={6}
-                required
               />
 
               <button
-                type="submit"
-                disabled={!isFormValid || isSubmitting}
+                type="button"
+                onClick={handleSubmit}
+                disabled={isSubmitting}
                 className={`w-full flex items-center justify-center space-x-2 px-8 py-4 rounded-lg font-semibold transition-all duration-200 ${
-                  isFormValid && !isSubmitting
+                  !isSubmitting
                     ? 'bg-teal-600 hover:bg-teal-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    : 'bg-gray-400 text-white cursor-not-allowed'
                 }`}
               >
                 {isSubmitting ? (
@@ -346,7 +308,7 @@ const ContactSection = () => {
                   <span>Send Message</span>
                 )}
               </button>
-            </form>
+              </div>
           </div>
         </div>
       </div>
