@@ -23,15 +23,19 @@ const ProductList = ({ title, products, showStatus = true }) => {
       <div className="p-6">
         <div className="space-y-4">
           {products.slice(0, 5).map((product) => (
-            <div key={product.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div className="flex items-center space-x-3">
-                <Package className="h-8 w-8 text-blue-600" />
+            <div
+              key={product.id}
+              className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+            >
+              <div className="flex items-center gap-3">
+                <Package className="w-8 h-8 text-blue-600" />
                 <div>
-                  <div className="text-sm font-medium text-gray-900">{product.name}</div>
-                  <div className="text-sm text-gray-500">{product.category}</div>
+                  <p className="text-sm font-medium text-gray-900">{product.name}</p>
+                  <p className="text-sm text-gray-500">{product.category}</p>
                 </div>
               </div>
-              <div className="text-right">
+
+              <div className="text-right space-y-1">
                 {showStatus && (
                   <span
                     className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(product.status)}`}
@@ -39,7 +43,7 @@ const ProductList = ({ title, products, showStatus = true }) => {
                     {product.status}
                   </span>
                 )}
-                <div className="text-sm text-gray-500 mt-1">{product.dateAdded}</div>
+                <p className="text-sm text-gray-500">{product.dateAdded}</p>
               </div>
             </div>
           ))}

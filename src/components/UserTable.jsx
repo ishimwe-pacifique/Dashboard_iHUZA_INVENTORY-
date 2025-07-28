@@ -1,4 +1,3 @@
-"use client"
 import { User } from "lucide-react"
 import { useUsers } from "../hooks/useContexts"
 
@@ -23,11 +22,31 @@ const UserTable = () => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
-      <div className="p-4 md:p-6 border-b border-gray-200 dark:border-gray-700">
+    <div 
+      className="rounded-xl border transition-colors duration-200"
+      style={{
+        backgroundColor: 'var(--card)',
+        borderColor: 'var(--border)'
+      }}
+    >
+      <div 
+        className="p-4 md:p-6 border-b"
+        style={{ borderColor: 'var(--border)' }}
+      >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Users</h3>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 self-start sm:self-auto">
+          <h3 
+            className="text-lg font-semibold"
+            style={{ color: 'var(--card-foreground)' }}
+          >
+            Users
+          </h3>
+          <button 
+            className="hover:opacity-90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 self-start sm:self-auto"
+            style={{
+              backgroundColor: 'var(--primary)',
+              color: 'var(--primary-foreground)'
+            }}
+          >
             Add User
           </button>
         </div>
@@ -37,14 +56,34 @@ const UserTable = () => {
       <div className="block md:hidden">
         <div className="p-4 space-y-4">
           {users.map((user) => (
-            <div key={user.id} className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg space-y-3">
+            <div 
+              key={user.id} 
+              className="p-4 rounded-lg space-y-3"
+              style={{ backgroundColor: 'var(--muted)' }}
+            >
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
-                  <User className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                <div 
+                  className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: 'var(--secondary)' }}
+                >
+                  <User 
+                    className="w-5 h-5"
+                    style={{ color: 'var(--muted-foreground)' }}
+                  />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{user.name}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user.email}</p>
+                  <p 
+                    className="text-sm font-medium truncate"
+                    style={{ color: 'var(--card-foreground)' }}
+                  >
+                    {user.name}
+                  </p>
+                  <p 
+                    className="text-xs truncate"
+                    style={{ color: 'var(--muted-foreground)' }}
+                  >
+                    {user.email}
+                  </p>
                 </div>
               </div>
 
@@ -58,9 +97,17 @@ const UserTable = () => {
               </div>
 
               <div className="flex justify-between items-center">
-                <span className="text-xs text-gray-500 dark:text-gray-400">{user.lastLogin}</span>
+                <span 
+                  className="text-xs"
+                  style={{ color: 'var(--muted-foreground)' }}
+                >
+                  {user.lastLogin}
+                </span>
                 <div className="flex space-x-2">
-                  <button className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-xs font-medium">
+                  <button 
+                    className="text-xs font-medium hover:opacity-80"
+                    style={{ color: 'var(--primary)' }}
+                  >
                     Edit
                   </button>
                   <button
@@ -79,36 +126,80 @@ const UserTable = () => {
       {/* Desktop Table View */}
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-gray-50 dark:bg-gray-700">
+          <thead style={{ backgroundColor: 'var(--muted)' }}>
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              <th 
+                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                style={{ color: 'var(--muted-foreground)' }}
+              >
                 USER
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              <th 
+                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                style={{ color: 'var(--muted-foreground)' }}
+              >
                 ROLE
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              <th 
+                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                style={{ color: 'var(--muted-foreground)' }}
+              >
                 STATUS
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              <th 
+                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                style={{ color: 'var(--muted-foreground)' }}
+              >
                 LAST LOGIN
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              <th 
+                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                style={{ color: 'var(--muted-foreground)' }}
+              >
                 ACTIONS
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+          <tbody 
+            className="divide-y transition-colors duration-150"
+            style={{
+              backgroundColor: 'var(--card)',
+              '--tw-divide-opacity': '1',
+              borderColor: 'var(--border)'
+            }}
+          >
             {users.map((user) => (
-              <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150">
+              <tr 
+                key={user.id} 
+                className="hover:opacity-75 transition-colors duration-150"
+                style={{ 
+                  ':hover': { backgroundColor: 'var(--muted)' }
+                }}
+              >
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
-                      <User className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                    <div 
+                      className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{ backgroundColor: 'var(--secondary)' }}
+                    >
+                      <User 
+                        className="w-4 h-4"
+                        style={{ color: 'var(--muted-foreground)' }}
+                      />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{user.name}</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{user.email}</p>
+                      <p 
+                        className="text-sm font-medium truncate"
+                        style={{ color: 'var(--card-foreground)' }}
+                      >
+                        {user.name}
+                      </p>
+                      <p 
+                        className="text-sm truncate"
+                        style={{ color: 'var(--muted-foreground)' }}
+                      >
+                        {user.email}
+                      </p>
                     </div>
                   </div>
                 </td>
@@ -122,12 +213,18 @@ const UserTable = () => {
                     {user.status}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                <td 
+                  className="px-6 py-4 whitespace-nowrap text-sm"
+                  style={{ color: 'var(--muted-foreground)' }}
+                >
                   {user.lastLogin}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex space-x-2">
-                    <button className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium transition-colors duration-150">
+                    <button 
+                      className="text-sm font-medium transition-colors duration-150 hover:opacity-80"
+                      style={{ color: 'var(--primary)' }}
+                    >
                       Edit
                     </button>
                     <button

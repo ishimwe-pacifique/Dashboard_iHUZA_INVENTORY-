@@ -21,11 +21,28 @@ const RecentActivity = () => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-      <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+    <div 
+      className="rounded-xl border"
+      style={{
+        backgroundColor: 'var(--card)',
+        borderColor: 'var(--border)'
+      }}
+    >
+      <div 
+        className="p-6 border-b"
+        style={{ borderColor: 'var(--border)' }}
+      >
         <div className="flex justify-between items-center">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Activity</h3>
-          <button className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium">
+          <h3 
+            className="text-lg font-semibold"
+            style={{ color: 'var(--card-foreground)' }}
+          >
+            Recent Activity
+          </h3>
+          <button 
+            className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium"
+            style={{ color: 'var(--primary)' }}
+          >
             View all
           </button>
         </div>
@@ -39,13 +56,31 @@ const RecentActivity = () => {
 
             return (
               <div key={activity.id} className="flex items-start space-x-3">
-                <div className={`p-2 rounded-lg bg-gray-50 dark:bg-gray-700 ${colorClass}`}>
+                <div 
+                  className={`p-2 rounded-lg ${colorClass}`}
+                  style={{ backgroundColor: 'var(--muted)' }}
+                >
                   <Icon size={16} />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">{activity.type}</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{activity.description}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">{activity.date}</p>
+                  <p 
+                    className="text-sm font-medium"
+                    style={{ color: 'var(--card-foreground)' }}
+                  >
+                    {activity.type}
+                  </p>
+                  <p 
+                    className="text-sm"
+                    style={{ color: 'var(--muted-foreground)' }}
+                  >
+                    {activity.description}
+                  </p>
+                  <p 
+                    className="text-xs mt-1"
+                    style={{ color: 'var(--muted-foreground)' }}
+                  >
+                    {activity.date}
+                  </p>
                 </div>
               </div>
             )

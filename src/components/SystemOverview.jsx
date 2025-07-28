@@ -1,4 +1,4 @@
-"use client"
+
 import { Box, CheckCircle } from "lucide-react"
 
 const SystemOverview = () => {

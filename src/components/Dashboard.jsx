@@ -13,7 +13,7 @@ const Dashboard = () => {
   const { totalProducts, assignedProducts, unassignedProducts } = useProducts()
 
   return (
-    <div className="flex-1 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-200">
+    <div className="flex-1 bg-background  min-h-screen transition-colors duration-200">
       <Header />
 
       <div className="p-4 md:p-6 space-y-6 md:space-y-8">

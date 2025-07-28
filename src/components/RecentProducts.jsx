@@ -18,15 +18,27 @@ const RecentProducts = () => {
 
   return (
     <div className="space-y-4 md:space-y-6">
-      <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-white">Recent Added Products</h3>
+      <h3 
+        className="text-lg md:text-xl font-semibold"
+        style={{ color: 'var(--foreground)' }}
+      >
+        Recent Added Products
+      </h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
         {products.slice(0, 5).map((product) => (
           <div
             key={product.id}
-            className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-xl border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md dark:hover:shadow-lg"
+            className="p-4 md:p-6 rounded-xl border transition-all duration-200 hover:shadow-md dark:hover:shadow-lg"
+            style={{
+              backgroundColor: 'var(--card)',
+              borderColor: 'var(--border)'
+            }}
           >
             <div className="flex justify-between items-start mb-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white text-sm md:text-base truncate pr-2">
+              <h4 
+                className="font-semibold text-sm md:text-base truncate pr-2"
+                style={{ color: 'var(--card-foreground)' }}
+              >
                 {product.name}
               </h4>
               <span
@@ -35,8 +47,18 @@ const RecentProducts = () => {
                 {product.status}
               </span>
             </div>
-            <p className="text-gray-600 dark:text-gray-400 text-sm mb-2 truncate">{product.category}</p>
-            <p className="text-gray-500 dark:text-gray-500 text-xs md:text-sm">{product.dateAdded}</p>
+            <p 
+              className="text-sm mb-2 truncate"
+              style={{ color: 'var(--muted-foreground)' }}
+            >
+              {product.category}
+            </p>
+            <p 
+              className="text-xs md:text-sm"
+              style={{ color: 'var(--muted-foreground)' }}
+            >
+              {product.dateAdded}
+            </p>
           </div>
         ))}
       </div>
