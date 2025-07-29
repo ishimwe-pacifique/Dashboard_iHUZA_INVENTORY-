@@ -36,9 +36,23 @@ const QuickActions = () => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-      <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Quick Actions</h3>
+    <div 
+      className="rounded-xl border"
+      style={{
+        backgroundColor: 'var(--card)',
+        borderColor: 'var(--border)'
+      }}
+    >
+      <div 
+        className="p-6 border-b"
+        style={{ borderColor: 'var(--border)' }}
+      >
+        <h3 
+          className="text-lg font-semibold"
+          style={{ color: 'var(--card-foreground)' }}
+        >
+          Quick Actions
+        </h3>
       </div>
 
       <div className="p-6">
@@ -48,15 +62,35 @@ const QuickActions = () => {
             const colorClass = getColorClasses(action.color)
 
             return (
-              <div key={index} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div 
+                key={index} 
+                className="flex items-center justify-between p-4 rounded-lg"
+                style={{ backgroundColor: 'var(--muted)' }}
+              >
                 <div className="flex items-center space-x-3">
                   <Icon className={`w-5 h-5 ${colorClass}`} />
                   <div>
-                    <p className="text-sm font-medium text-gray-900 dark:text-white">{action.title}</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{action.description}</p>
+                    <p 
+                      className="text-sm font-medium"
+                      style={{ color: 'var(--card-foreground)' }}
+                    >
+                      {action.title}
+                    </p>
+                    <p 
+                      className="text-sm"
+                      style={{ color: 'var(--muted-foreground)' }}
+                    >
+                      {action.description}
+                    </p>
                   </div>
                 </div>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                <button 
+                  className="hover:opacity-90 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  style={{
+                    backgroundColor: 'var(--primary)',
+                    color: 'var(--primary-foreground)'
+                  }}
+                >
                   Go
                 </button>
               </div>

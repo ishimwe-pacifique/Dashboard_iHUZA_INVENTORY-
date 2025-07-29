@@ -29,7 +29,14 @@ const Dashboard = () => {
 
         <RecentProducts />
 
-        {/* Two Column Layout - Responsive */}
+      
+
+        {/* Users Table */}
+        <div className="overflow-hidden">
+          <UserTable />
+        </div>
+
+          {/* Two Column Layout - Responsive */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 md:gap-8">
           <div className="xl:col-span-2 order-2 xl:order-1">
             <RecentActivity />
@@ -38,11 +45,7 @@ const Dashboard = () => {
             <QuickActions />
           </div>
         </div>
-
-        {/* Users Table */}
-        <div className="overflow-hidden">
-          <UserTable />
-        </div>
+        
       </div>
     </div>
   )
