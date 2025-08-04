@@ -1,4 +1,3 @@
-"use client"
 
 import {
   Home,
@@ -40,22 +39,39 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
 
   const SidebarContent = () => (
     <>
-      {/* Logo Section */}
-      <div className="p-6 border-b border-border flex-shrink-0">
+      <div 
+        className="p-6 border-b flex-shrink-0"
+        style={{ borderColor: 'var(--sidebar-border)' }}
+      >
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-            <Box className="w-6 h-6 text-primary-foreground" />
+          <div 
+            className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm"
+            style={{ backgroundColor: 'var(--sidebar-primary)' }}
+          >
+            <Box 
+              className="w-7 h-7" 
+              style={{ color: 'var(--sidebar-primary-foreground)' }}
+            />
           </div>
           <div className="min-w-0">
-            <h1 className="text-xl font-bold text-foreground truncate">iHUZA</h1>
-            <p className="text-sm text-muted-foreground">INVENTORY</p>
+            <h1 
+              className="text-xl font-bold truncate"
+              style={{ color: 'var(--sidebar-foreground)' }}
+            >
+              iHUZA
+            </h1>
+            <p 
+              className="text-sm font-medium tracking-wide"
+              style={{ color: 'var(--muted-foreground)' }}
+            >
+              INVENTORY
+            </p>
           </div>
         </div>
       </div>
 
-      {/* Navigation Menu */}
       <nav className="flex-1 p-4 overflow-y-auto">
-        <ul className="space-y-1">
+        <ul className="space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon
             const isActive = activeTab === item.id
@@ -63,19 +79,40 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
               <li key={item.id}>
                 <button
                   onClick={() => setActiveTab(item.id)}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-all duration-200 text-left group
-                    ${
-                      isActive
-                        ? "bg-muted text-primary shadow-sm"
-                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                    }`}
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 text-left group"
+                  style={{
+                    backgroundColor: isActive ? 'var(--sidebar-accent)' : 'transparent',
+                    color: isActive ? 'var(--sidebar-primary)' : 'var(--sidebar-foreground)',
+                    ':hover': {
+                      backgroundColor: 'var(--sidebar-accent)'
+                    }
+                  }}
                 >
                   <div className="flex items-center space-x-3 min-w-0">
-                    <Icon size={20} className="flex-shrink-0" />
-                    <span className="font-medium truncate">{item.label}</span>
+                    <Icon 
+                      size={20} 
+                      className="flex-shrink-0"
+                      style={{
+                        color: isActive ? 'var(--sidebar-primary)' : 'var(--muted-foreground)'
+                      }}
+                    />
+                    <span 
+                      className="font-medium truncate"
+                      style={{
+                        color: isActive ? 'var(--sidebar-primary)' : 'var(--sidebar-foreground)'
+                      }}
+                    >
+                      {item.label}
+                    </span>
                   </div>
                   {item.count && (
-                    <span className="text-sm font-medium bg-muted text-muted-foreground px-2 py-0.5 rounded-full flex-shrink-0">
+                    <span 
+                      className="text-sm font-semibold px-2.5 py-1 rounded-lg flex-shrink-0"
+                      style={{
+                        backgroundColor: 'var(--muted)',
+                        color: 'var(--muted-foreground)'
+                      }}
+                    >
                       {item.count}
                     </span>
                   )}
@@ -86,18 +123,27 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         </ul>
       </nav>
 
-      {/* User Section */}
-      <div className="p-4 border-t border-border flex-shrink-0">
+      <div 
+        className="p-4 border-t flex-shrink-0"
+        style={{ borderColor: 'var(--sidebar-border)' }}
+      >
         <button
           onClick={logout}
-          className="w-full flex items-center space-x-3 px-3 py-2.5 text-muted-foreground hover:bg-muted hover:text-destructive rounded-lg transition-all duration-200 text-left group"
+          className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 text-left group hover:opacity-80"
+          style={{ color: 'var(--muted-foreground)' }}
         >
           <LogOut size={20} className="flex-shrink-0" />
           <span className="font-medium truncate">Logout</span>
         </button>
         {loginUser && (
-          <div className="mt-3 px-3 py-2 bg-muted rounded-lg">
-            <p className="text-xs text-muted-foreground truncate">
+          <div 
+            className="mt-3 px-4 py-3 rounded-xl"
+            style={{ backgroundColor: 'var(--sidebar-accent)' }}
+          >
+            <p 
+              className="text-xs font-medium truncate"
+              style={{ color: 'var(--muted-foreground)' }}
+            >
               {loginUser.email}
             </p>
           </div>
@@ -109,12 +155,22 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
   const MobileMenuButton = () => (
     <button
       onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-      className="md:hidden fixed top-4 left-4 z-50 p-2 bg-background border border-border rounded-lg shadow-lg"
+      className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg shadow-lg"
+      style={{
+        backgroundColor: 'var(--background)',
+        borderColor: 'var(--border)'
+      }}
     >
       {isMobileMenuOpen ? (
-        <X className="w-6 h-6 text-muted-foreground" />
+        <X 
+          className="w-6 h-6" 
+          style={{ color: 'var(--muted-foreground)' }}
+        />
       ) : (
-        <Menu className="w-6 h-6 text-muted-foreground" />
+        <Menu 
+          className="w-6 h-6" 
+          style={{ color: 'var(--muted-foreground)' }}
+        />
       )}
     </button>
   )
@@ -123,27 +179,34 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
     <>
       <MobileMenuButton />
 
-      {/* Desktop Sidebar */}
-      <div className="hidden md:flex w-64 bg-background border-r border-border h-screen flex-col fixed left-0 top-0 z-30">
+      <div 
+        className="hidden md:flex w-64 border-r h-screen flex-col fixed left-0 top-0 z-30"
+        style={{
+          backgroundColor: 'var(--sidebar)',
+          borderColor: 'var(--sidebar-border)'
+        }}
+      >
         <SidebarContent />
       </div>
 
-      {/* Mobile Sidebar */}
       {isMobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-40 flex">
-          {/* Backdrop */}
           <div
             className="fixed inset-0 bg-black/50 transition-opacity"
             onClick={() => setIsMobileMenuOpen(false)}
           />
-          {/* Sidebar Panel */}
-          <div className="relative flex flex-col w-64 bg-background border-r border-border h-full">
+          <div 
+            className="relative flex flex-col w-64 border-r h-full"
+            style={{
+              backgroundColor: 'var(--sidebar)',
+              borderColor: 'var(--sidebar-border)'
+            }}
+          >
             <SidebarContent />
           </div>
         </div>
       )}
 
-      {/* Spacer */}
       <div className="hidden md:block w-64 flex-shrink-0" />
     </>
   )

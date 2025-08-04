@@ -37,3 +37,31 @@ export const useTheme = () => {
   }
   return context
 }
+
+// Combined hook that returns all contexts
+export const useContexts = () => {
+  const userContext = useUsers()
+  const productContext = useProducts()
+  const loginUserContext = useLoginUser()
+  const themeContext = useTheme()
+
+  return {
+    // User context
+    users: userContext.users,
+    addUser: userContext.addUser,
+    updateUser: userContext.updateUser,
+    deleteUser: userContext.deleteUser,
+    totalUsers: userContext.totalUsers,
+
+    // Product context
+    ...productContext,
+
+    // Login user context
+    loginUser: loginUserContext.loginUser,
+    updateLoginUser: loginUserContext.updateLoginUser,
+
+    // Theme context
+    theme: themeContext.theme,
+    toggleTheme: themeContext.toggleTheme,
+  }
+}

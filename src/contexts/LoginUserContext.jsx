@@ -1,18 +1,19 @@
-"use client"
-
 import { createContext, useState } from "react"
 
 const LoginUserContext = createContext()
 
 export const LoginUserProvider = ({ children }) => {
-  const [loginUser, setLoginUser] = useState({
-    username: "Admin",
-    email: "admin@ihuza.com",
-    role: "Admin",
-  })
+  // Start with no logged-in user (null instead of default admin)
+  const [loginUser, setLoginUser] = useState(null)
 
   const updateLoginUser = (userData) => {
-    setLoginUser((prev) => ({ ...prev, ...userData }))
+    if (userData === null) {
+      // Handle logout case
+      setLoginUser(null)
+    } else {
+      // Handle login case - completely replace the user data
+      setLoginUser(userData)
+    }
   }
 
   const logout = () => {

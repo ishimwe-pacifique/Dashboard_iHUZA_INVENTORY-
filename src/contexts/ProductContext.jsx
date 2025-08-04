@@ -11,7 +11,7 @@ export const ProductProvider = ({ children }) => {
       category: "Laptops",
       status: "In Stock",
       dateAdded: "Dec 10, 2024",
-      assigned: false,
+      assigned: true,
     },
     {
       id: 2,
@@ -19,7 +19,7 @@ export const ProductProvider = ({ children }) => {
       category: "Tablets",
       status: "In Stock",
       dateAdded: "Dec 7, 2024",
-      assigned: false,
+      assigned: true,
     },
     {
       id: 3,
@@ -45,6 +45,22 @@ export const ProductProvider = ({ children }) => {
       dateAdded: "Dec 8, 2024",
       assigned: false,
     },
+      {
+      id: 6,
+      name: "iPhone 15 Pro",
+      category: "Mobile",
+      status: "Low Stock",
+      dateAdded: "Dec 8, 2024",
+      assigned: false,
+    },
+     {
+      id: 7,
+      name: "iPhone 15 Pro",
+      category: "Mobile",
+      status: "Low Stock",
+      dateAdded: "Dec 8, 2024",
+      assigned: false,
+    }
   ])
 
   const [recentActivity, setRecentActivity] = useState([
@@ -78,6 +94,19 @@ export const ProductProvider = ({ children }) => {
       description: "Amanda White - Staff Member",
       date: "Jan 14, 2024",
     },
+
+        {
+      id: 6,
+      type: "New user registered",
+      description: "Amanda White - Staff Member",
+      date: "Jan 14, 2024",
+    },
+       {
+      id: 7,
+      type: "New user registered",
+      description: "Amanda White - Staff Member",
+      date: "Jan 14, 2024",
+    }
   ])
 
   const addProduct = (product) => {

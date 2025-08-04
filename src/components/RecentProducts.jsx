@@ -25,7 +25,7 @@ const RecentProducts = () => {
         Recent Added Products
       </h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-        {products.slice(0, 5).map((product) => (
+        {products.slice(0, 7).map((product) => (
           <div
             key={product.id}
             className="p-4 md:p-6 rounded-xl border transition-all duration-200 hover:shadow-md dark:hover:shadow-lg"

@@ -52,7 +52,7 @@ const UserTable = () => {
         </div>
       </div>
 
-      {/* Mobile Card View */}
+   
       <div className="block md:hidden">
         <div className="p-4 space-y-4">
           {users.map((user) => (

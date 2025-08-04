@@ -18,8 +18,6 @@ const Dashboard = () => {
 
       <div className="p-4 md:p-6 space-y-6 md:space-y-8">
         <SystemOverview />
-
-        {/* Stats Grid - Responsive */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           <StatsCard title="Total Users" value={totalUsers} icon={Users} color="blue" />
           <StatsCard title="Total Products" value={totalProducts} icon={Package} color="green" />
@@ -28,15 +26,9 @@ const Dashboard = () => {
         </div>
 
         <RecentProducts />
-
-      
-
-        {/* Users Table */}
         <div className="overflow-hidden">
           <UserTable />
         </div>
-
-          {/* Two Column Layout - Responsive */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 md:gap-8">
           <div className="xl:col-span-2 order-2 xl:order-1">
             <RecentActivity />
